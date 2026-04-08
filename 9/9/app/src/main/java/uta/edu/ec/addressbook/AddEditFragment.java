@@ -45,7 +45,15 @@ public class AddEditFragment extends Fragment
     private TextInputLayout zipTextInputLayout;
     private FloatingActionButton saveContactFAB;
     private CoordinatorLayout coordinatorLayout;
-    private String Nor
+    private String NombreOriginal="";
+    private String TelefonoOriginal="";
+    private String CorreoOriginal="";
+    private String EmailOriginal="";
+    private String CalleOriginal="";
+    private String CiudadOriginal="";
+    private String EstadoOriginal="";
+    private String ZipOriginal="";
+
 
     @Override
     public void onAttach(Context context) {
@@ -230,6 +238,14 @@ public class AddEditFragment extends Fragment
             zipTextInputLayout.getEditText()
                     .setText(data.getString(zipIndex));
 
+            NombreOriginal=data.getString(nameIndex);
+            TelefonoOriginal=data.getString(phoneIndex);
+            EmailOriginal= data.getString(emailIndex);
+            CalleOriginal=data.getString(streetIndex);
+            CiudadOriginal= data.getString(cityIndex);
+            EstadoOriginal=data.getString(stateIndex);
+            ZipOriginal=data.getString(zipIndex);
+
             updateSaveButtonFAB();
         }
     }
@@ -286,7 +302,18 @@ public class AddEditFragment extends Fragment
 
         return isValid;
     }
+    private boolean CambiosNoGuardados(){
+        if(addingNewContact)return false;
+        String Nombre=nameTextInputLayout.getEditText().getText().toString();
+        String Telefono=nameTextInputLayout.getEditText().getText().toString();
+        String Email=nameTextInputLayout.getEditText().getText().toString();
+        String Calle=nameTextInputLayout.getEditText().getText().toString();
+        String Ciudad=nameTextInputLayout.getEditText().getText().toString();
+        String Estado=nameTextInputLayout.getEditText().getText().toString();
+        String Zip=nameTextInputLayout.getEditText().getText().toString();
+    }
 
     @Override
     public void onLoaderReset(Loader<Cursor> loader) {}
 }
+
