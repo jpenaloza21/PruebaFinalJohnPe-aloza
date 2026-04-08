@@ -12,6 +12,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
 
+import androidx.activity.OnBackPressedCallback;
+import androidx.appcompat.app.AlertDialog;
 import androidx.coordinatorlayout.widget.CoordinatorLayout;
 import androidx.fragment.app.Fragment;
 import androidx.loader.app.LoaderManager;
@@ -65,6 +67,25 @@ public class AddEditFragment extends Fragment
     public void onDetach() {
         super.onDetach();
         listener = null;
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        requireActivity().getOnBackPressedDispatcher().addCallback(
+                getViewLifecycleOwner(), new OnBackPressedCallback(true) {
+                    @Override
+                    public void handleOnBackPressed() {
+                        if(CambiosNoGuardados()){
+                            MostrarCambiosNoGuardados();
+                        }else {
+                            setEnabled(false);
+                            requireActivity().getOnBackPressedDispatcher().onBackPressed();
+                        }
+                    }
+                }
+        );
+
     }
 
     @Override
@@ -311,6 +332,23 @@ public class AddEditFragment extends Fragment
         String Ciudad=nameTextInputLayout.getEditText().getText().toString();
         String Estado=nameTextInputLayout.getEditText().getText().toString();
         String Zip=nameTextInputLayout.getEditText().getText().toString();
+        return !Nombre.equals(NombreOriginal)
+                ||!Telefono.equals(TelefonoOriginal)
+                ||!Email.equals(EmailOriginal)
+                ||!Calle.equals(CalleOriginal)
+                ||!Ciudad.equals(CiudadOriginal)
+                ||!Estado.equals(EstadoOriginal)
+                ||!Zip.equals(ZipOriginal);
+    }
+
+    private void MostrarCambiosNoGuardados(){
+        new AlertDialog.Builder(getActivity()).setTitle("Cambios sin Guardar").setMessage("Tienes Cambios sin Guardar.")
+                .setPositiveButton("Salir sin guardar",((dialog, which) -> {
+                    getActivity().getSupportFragmentManager().popBackStack();
+                })
+                ).setNegativeButton("Continuar Editando",((dialog, which) -> {
+                    dialog.dismiss();
+                })).show();
     }
 
     @Override
