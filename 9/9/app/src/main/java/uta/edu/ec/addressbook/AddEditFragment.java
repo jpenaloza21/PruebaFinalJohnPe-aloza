@@ -45,6 +45,7 @@ public class AddEditFragment extends Fragment
     private TextInputLayout zipTextInputLayout;
     private FloatingActionButton saveContactFAB;
     private CoordinatorLayout coordinatorLayout;
+    private String Nor
 
     @Override
     public void onAttach(Context context) {
@@ -235,7 +236,6 @@ public class AddEditFragment extends Fragment
     private boolean validateFields() {
         boolean isValid = true;
 
-
         String name = nameTextInputLayout.getEditText().getText().toString();
         if (name.trim().isEmpty()) {
             nameTextInputLayout.setError(getString(R.string.error_name_required));
@@ -248,6 +248,7 @@ public class AddEditFragment extends Fragment
         String phone = phoneTextInputLayout.getEditText().getText().toString();
         if (!phone.isEmpty()) {
             if (!phone.matches("\\d{10}")) {
+                String telefonoNormalizado=phone.replaceAll("[\\s\\-]","");
                 phoneTextInputLayout.setError(getString(R.string.error_phone_invalid));
                 isValid = false;
             } else {
