@@ -1,1 +1,2 @@
 
+Los cambios se hicieron en AddEditFragment.java y DetailFragment.java, eligiendo esos archivos porque son los únicos puntos donde se edita y elimina un contacto. 
