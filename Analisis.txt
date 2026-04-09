@@ -1,0 +1,42 @@
+1. Describa paso a paso qué ocurre en su aplicación cuando el usuario 
+guarda un contacto. 
+Al momento de presionar el botón de guardar se realizan las validaciones requeridas en
+AddEditFragment, se ejecuta el listener y llama al saveContact().
+
+Dentro de saveContact() verifica:
+Que el nombre no esté vacío ni sea solo espacios
+Que el teléfono, si se ingresó, tenga exactamente 10 dígitos después
+  de normalizar espacios y guiones con replaceAll("[\\s\\-]", "")
+Que el email, si se ingresó, tenga formato válido usando
+  android.util.Patterns.EMAIL_ADDRESS
+Que el ZIP, si se ingresó, tenga exactamente 5 dígitos
+
+Si la validación falla, se muestran errores en los TextInputLayout
+correspondientes y no se continúa.
+
+
+2. ¿Cómo se almacenan los datos?
+
+Los datos se almacenan en una base de datos SQLite local.
+DatabaseDescription: define las constantes de la tabla y columnas
+ (COLUMN_NAME, COLUMN_PHONE, COLUMN_EMAIL, COLUMN_STREET, COLUMN_CITY,
+  COLUMN_STATE, COLUMN_ZIP) y la URI del ContentProvider.
+AddressBookDatabaseHelper
+AddressBookContentProvider
+
+3. ¿Cómo se realiza la navegación entre fragments?
+
+La navegación se gestiona en MainActivity mediante FragmentTransaction.
+
+displayContact(): reemplaza el fragmentContainer con DetailFragment,
+  pasando la URI del contacto en un Bundle. Agrega la transacción al
+  back stack con addToBackStack(null).
+
+displayAddEditFragment(): reemplaza el fragmentContainer con
+  AddEditFragment. Si se pasa una URI es modo edición, si es null
+  es modo creación.
+
+4. Problema si una operación costosa se ejecuta en el hilo UI
+
+
+
