@@ -284,8 +284,9 @@ public class AddEditFragment extends Fragment
 
         String phone = phoneTextInputLayout.getEditText().getText().toString();
         if (!phone.isEmpty()) {
+            String telefonoNormalizado=phone.replaceAll("[\\s\\-]","");
             if (!phone.matches("\\d{10}")) {
-                String telefonoNormalizado=phone.replaceAll("[\\s\\-]","");
+
                 phoneTextInputLayout.setError(getString(R.string.error_phone_invalid));
                 isValid = false;
             } else {
@@ -326,12 +327,12 @@ public class AddEditFragment extends Fragment
     private boolean CambiosNoGuardados(){
         if(addingNewContact)return false;
         String Nombre=nameTextInputLayout.getEditText().getText().toString();
-        String Telefono=nameTextInputLayout.getEditText().getText().toString();
-        String Email=nameTextInputLayout.getEditText().getText().toString();
-        String Calle=nameTextInputLayout.getEditText().getText().toString();
-        String Ciudad=nameTextInputLayout.getEditText().getText().toString();
-        String Estado=nameTextInputLayout.getEditText().getText().toString();
-        String Zip=nameTextInputLayout.getEditText().getText().toString();
+        String Telefono=phoneTextInputLayout.getEditText().getText().toString();
+        String Email=emailTextInputLayout.getEditText().getText().toString();
+        String Calle=streetTextInputLayout.getEditText().getText().toString();
+        String Ciudad=cityTextInputLayout.getEditText().getText().toString();
+        String Estado=stateTextInputLayout.getEditText().getText().toString();
+        String Zip=zipTextInputLayout.getEditText().getText().toString();
         return !Nombre.equals(NombreOriginal)
                 ||!Telefono.equals(TelefonoOriginal)
                 ||!Email.equals(EmailOriginal)
